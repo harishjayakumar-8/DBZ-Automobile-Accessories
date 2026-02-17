@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DBZ Accessories - Payment</title>
+    <script src="https://unpkg.com/lucide@latest"></script> 
+    <style>
+        /* --- General & Theme Styles --- */
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 15px 20px;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 2rem;
+            position: relative;
+        }
+        nav .brand {
+            font-weight: bold;
+            font-size: 2rem;
+            user-select: none;
+        }
+        nav .links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 1rem;
+        }
+        nav .links a {
+            color: white; 
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+            padding: 5px 10px; 
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        
+        nav .links a.active,
+        nav .links a:hover {
+            background-color: #004080; 
+            color: #fff;
+        }
+        nav .links a svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+        
+        /* --- Main Content & Layout --- */
+        main {
+            flex-grow: 1;
+            padding: 20px;
+            max-width: 800px; 
+            width: 100%;
+            margin: auto;
+        }
+        
+        h2.page-title {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .payment-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 30px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* --- Order Total Box --- */
+        .order-total-box {
+            background-color: #e6f0ff; 
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #003366;
+            border: 1px solid #003366;
+        }
+        .order-total-box span.amount {
+            font-size: 1.8rem;
+            color: #d9534f; /* Alert/Important red color */
+        }
+        
+        /* --- Payment Methods Section --- */
+        .payment-methods {
+            border-top: 2px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .payment-methods h3 {
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .payment-option {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        .payment-option:has(input:checked) {
+            border-color: #003366;
+            background-color: #f4f7fa;
+        }
+
+        .payment-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .payment-header input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: #003366;
+        }
+
+        .payment-details {
+            padding: 0 15px 15px 45px; 
+            display: none;
+            border-top: 1px solid #eee;
+        }
+        .payment-option:has(input:checked) .payment-details {
+            display: block;
+        }
+        
+        /* --- Form Styling --- */
+        .form-group {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50; /* Green submit button */
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            transition: background-color 0.2s;
+        }
+        .btn-confirm:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: #d9534f;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* --- Footer & Modal --- */
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 0px 20px;
+            margin-top: auto;
+        }
+        .modal-overlay { 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none; 
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            max-width: 90%;
+            min-width: 300px;
+        }
+    </style>
+</head>
+<body id="payment">
+    <header>
+        <nav>
+            <div class="brand" title="DBZ Accessories">DBZ Accessories</div>
+            <div class="links">
+                <a href="checkout.html" class="back" id="backToCheckoutLink">
+                    <i data-lucide="circle-arrow-left"></i>Back to Checkout
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h2 class="page-title">Payment Options</h2>
+        
+        <div class="payment-container">
+            <div class="order-total-box">
+                <span>Total Payable:</span>
+                <span id="displayTotal" class="amount">₹0.00</span>
+            </div>
+
+            <form id="paymentForm" onsubmit="handlePayment(event)" novalidate>
+                <div class="payment-methods">
+                    <h3>Select a Payment Method</h3>
+
+                    <div class="payment-option">
+                        <label class="payment-header">
+                            <input type="radio" name="paymentMethod" value="upi" id="upiRadio" required>
+                            <span>UPI (Google Pay, PhonePe, Paytm)</span>
+                        </label>
+                        <div class="payment-details">
+                            <div class="form-group">
+                                <label for="upiId">Enter UPI ID</label>
+                                <input type="text" id="upiId" placeholder="example@bank" data-required="upi">
+                                <div id="error-upiId" class="error-message">A valid UPI ID (e.g., example@bank) is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-option">
+                        <label class="payment-header">
+                            <input type="radio" name="paymentMethod" value="card" id="cardRadio">
+                            <span>Credit/Debit Card</span>
+                        </label>
+                        <div class="payment-details">
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number</label>
+                                <input type="text" id="cardNumber" placeholder="xxxx xxxx xxxx xxxx" maxlength="16" data-required="card">
+                                <div id="error-cardNumber" class="error-message">A valid 16-digit card number is required.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardName">Name on Card</label>
+                                <input type="text" id="cardName" placeholder="Full Name" data-required="card">
+                                <div id="error-cardName" class="error-message">Name on card is required.</div>
+                            </div>
+                            <div class="form-row expiry-cvv-row">
+                                <div class="form-group">
+                                    <label for="cardExpiry">Expiry (MM/YY)</label>
+                                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" data-required="card">
+                                    <div id="error-cardExpiry" class="error-message">Expiry date is required (MM/YY).</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardCvv">CVV</label>
+                                    <input type="text" id="cardCvv" placeholder="123" maxlength="3" data-required="card">
+                                    <div id="error-cardCvv" class="error-message">CVV is required (3 digits).</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-option">
+                        <label class="payment-header">
+                            <input type="radio" name="paymentMethod" value="netbanking" id="netbankingRadio">
+                            <span>Net Banking</span>
+                        </label>
+                        <div class="payment-details">
+                            <div class="form-group">
+                                <label for="netbankingBank">Select Bank</label>
+                                <select id="netbankingBank" data-required="netbanking">
+                                    <option value="">Choose your bank</option>
+                                    <option value="sbi">State Bank of India</option>
+                                    <option value="hdfc">HDFC Bank</option>
+                                    <option value="icici">ICICI Bank</option>
+                                    <option value="axis">Axis Bank</option>
+                                    <option value="other">Other Bank</option>
+                                </select>
+                                <div id="error-netbankingBank" class="error-message">Selecting a bank is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-option">
+                        <label class="payment-header">
+                            <input type="radio" name="paymentMethod" value="cod" id="codRadio">
+                            <span>Cash on Delivery (COD)</span>
+                        </label>
+                        <div class="payment-details" style="display: block; border-top: none; padding-bottom: 0;">
+                            <p style="margin-top: 0; color: #555;">Pay in cash when your order is delivered.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn-confirm" id="confirmPaymentBtn">Confirm Order and Pay</button>
+            </form>
+        </div>
+        
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DBZ Accessories. Unleash Your Power Level</p>
+    </footer>
+    
+    <div id="messageModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <h3 id="messageModalTitle" style="color: #003366;">Notification</h3>
+            <p id="messageModalBody" style="font-size: 1.1rem; margin: 20px 0;"></p>
+            <button class="btn-confirm" onclick="document.getElementById('messageModal').style.display='none';" style="width: 50%; margin: 0 auto; background-color: #003366;">Close</button>
+        </div>
+    </div>
+
+     <script src="script.js"></script>
+</body>
+</html>

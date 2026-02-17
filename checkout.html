@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DBZ Accessories - Checkout</title>
+    <script src="https://unpkg.com/lucide@latest"></script> 
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f8f8;
+        }
+
+        /* --- Header & Navigation Styles (Omitted for brevity) --- */
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 2rem;
+            position: relative;
+        }
+
+        nav .brand {
+            font-weight: bold;
+            font-size: 2rem;
+            user-select: none;
+        }
+
+        nav .links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 1rem;
+        }
+
+        nav .links a {
+            color: white; 
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+        }
+        
+        nav .links a svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        nav .cart {
+            position: relative;
+        }
+
+        nav .cart-badge {
+        position: absolute;
+        top: -10px; 
+        right: 36px; 
+        background: #003366;
+        color: white;
+        font-weight: bold;
+        font-size: 0.75rem;
+        border-radius: 50%;
+        min-width: 10px;
+        height: 15px;
+        line-height: 16px;
+        padding: 0 3px;
+        text-align: center;
+        user-select: none;
+        display: none; 
+    }
+
+        .search-container {
+            position: relative;
+            margin-right: 10px;
+        }
+        .search-bar {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .search-results {
+            position: absolute;
+            top: 38px;
+            left: 0;
+            background: white;
+            color: #003366;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            width: 200px;
+            z-index: 10;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .search-results div {
+            padding: 8px 10px;
+            cursor: pointer;
+            color: #003366; 
+        }
+        .search-results div:hover {
+            background-color: #e6f0ff;
+        }
+        
+        .user-menu {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #003366; 
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            margin-top: 5px;
+            padding: 8px 0;
+        }
+
+        .dropdown-content a, .dropdown-content div {
+            color: white; 
+            padding: 10px 16px;
+            text-decoration: none;
+            display: flex; 
+            align-items: center;
+            text-align: left;
+            font-size: 1rem;
+            white-space: nowrap; 
+            gap: 8px;
+        }
+        .dropdown-content a svg {
+            color: white;
+            stroke: white;
+        }
+        .dropdown-content a:hover {
+            background-color: #004488;
+        }
+
+        .show {
+            display: block;
+        }
+        /* --- End Header & Navigation Styles --- */
+        
+        /* --- Checkout Specific Styles --- */
+        main {
+            flex-grow: 1;
+            padding: 2px 2px;
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+        }
+
+        h2.checkout-title {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .checkout-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .shipping-form-container, .order-summary-container {
+            padding: 30px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .shipping-form-container {
+            flex: 2;
+        }
+        
+        .order-summary-container {
+            flex: 1;
+            position: sticky; 
+            top: 20px;
+        }
+        
+        /* Form Styles */
+        .shipping-form-container h3 {
+            color: #003366;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        /* Style for required field errors */
+        .form-group input:invalid:not(:focus):not(:placeholder-shown),
+        .form-group select:invalid:not(:focus):not([value=""]) {
+            border-color: #d9534f; 
+        }
+        .form-group .error-message {
+            color: #d9534f;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Order Summary Styles */
+        .order-summary-container h3 {
+            color: #003366;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 1rem;
+            color: #555;
+        }
+        .summary-item.total {
+            border-top: 2px solid #003366;
+            margin-top: 15px;
+            padding-top: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #003366;
+        }
+        .summary-item.total span {
+            color: #003366;
+        }
+
+        .item-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+        
+        .item-list .cart-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            padding: 5px 0;
+        }
+        .item-list .item-name {
+            color: #003366;
+        }
+        .item-list .item-price {
+            font-weight: 500;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background-color: #003366;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #002244;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .checkout-container {
+                flex-direction: column;
+            }
+            .order-summary-container {
+                position: static;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+            }
+            .shipping-form-container, .order-summary-container {
+                padding: 15px;
+            }
+        }
+        /* --- End Checkout Specific Styles --- */
+        
+        /* --- Footer Styles (Omitted for brevity) --- */
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 0px 20px;
+            margin-top: auto;
+        }
+        
+        /* Modal Styles */
+        .modal-overlay { 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none; 
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            max-width: 90%;
+            min-width: 300px;
+        }
+        
+    </style>
+</head>
+<body id = "checkout">
+    <header>
+        <nav>
+            <div class="brand" title="DBZ Accessories">DBZ Accessories</div>
+            <div class="links">
+                <div class="search-container">
+                    <input type="text" id="searchBar" class="search-bar" placeholder="Search product...">
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+                
+                <a href="index.html" title="Home">
+                    <i data-lucide="home"></i>Home
+                </a>
+                
+                <a href="product.html" title="Product">
+                    <i data-lucide="box"></i> Product
+                </a>
+                
+                <a href="about.html" title="About">
+                    <i data-lucide="info"></i>About
+                </a>
+                
+                <a href="contact.html" title="Contact">
+                    <i data-lucide="phone"></i>Contact
+                </a>
+                
+                <div class="user-menu" id="userMenuContainer">
+                    <a id="userNameLink" href="login.html" title="Login/User">
+                        <i data-lucide="user"></i> <span id="userNameText">Login</span> <i id="dropdownArrow" data-lucide="chevron-down" style="width: 16px; height: 16px; display: none;"></i>
+                    </a>
+                    <div id="userDropdown" class="dropdown-content">
+                    </div>
+                </div>
+                
+                <a href="cart.html" class="cart" title="Cart">
+                    <i data-lucide="shopping-cart"></i>Cart
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h2 class="checkout-title">Secure Checkout</h2>
+        
+        <div class="checkout-container">
+            
+            <div class="shipping-form-container">
+                <h3>Shipping Information</h3>
+                <form id="shippingForm" onsubmit="handleCheckout(event)" novalidate>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                            <div id="error-firstName" class="error-message">First name is required.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                            <div id="error-lastName" class="error-message">Last name is required.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="username@dbz.com" required>
+                        <div id="error-email" class="error-message">A valid email is required.</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Address Line 1</label>
+                        <input type="text" id="address" name="address" placeholder="1st line of address" required>
+                        <div id="error-address" class="error-message">Address Line 1 is required.</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address2">Address Line 2 (Optional)</label>
+                        <input type="text" id="address2" name="address2" placeholder="2st line of address">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" placeholder="Chennai" required>
+                            <div id="error-city" class="error-message">City is required.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" id="state" name="state" placeholder="Tamilnadu" required>
+                            <div id="error-state" class="error-message">State is required.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="zip">Zip/Postal Code</label>
+                            <input type="text" id="zip" name="zip" placeholder="600028" required>
+                            <div id="error-zip" class="error-message">Zip/Postal Code is required.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select id="country" name="country" required>
+                                <option value="">Select Country</option> 
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="IN" selected>India</option>
+                            </select>
+                            <div id="error-country" class="error-message">Country is required.</div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" id="placeOrderBtn">
+                        Proceed to Payment <span id="paymentTotalText"></span>
+                    </button>
+                </form>
+            </div>
+            
+            <div class="order-summary-container">
+                <h3>Order Summary</h3>
+                
+                <div class="item-list" id="summaryItemList">
+                    <div class="cart-item">
+                        <span class="item-name">Empty Cart</span>
+                        <span class="item-price">₹0</span>
+                    </div>
+                </div>
+                
+                <div class="summary-item">
+                    <span>Subtotal</span>
+                    <span id="summarySubtotal">₹0</span>
+                </div>
+                
+                <div class="summary-item">
+                    <span>Shipping (Standard)</span>
+                    <span id="summaryShipping">₹50</span>
+                </div>
+                
+                <div class="summary-item total">
+                    <span>Order Total</span>
+                    <span id="summaryTotal">₹50</span>
+                </div>
+            </div>
+            
+        </div>
+        
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DBZ Accessories. Unleash Your Power Level</p>
+    </footer>
+    
+    <div id="messageModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <h3 id="messageModalTitle" style="color: #003366;">Notification</h3>
+            <p id="messageModalBody" style="font-size: 1.1rem; margin: 20px 0;"></p>
+            <button class="btn-primary" onclick="document.getElementById('messageModal').style.display='none';" style="width: 50%; margin: 0 auto;">Close</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

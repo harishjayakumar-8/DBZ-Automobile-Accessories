@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DBZ Accessories - Products</title>
+    <script src="https://unpkg.com/lucide@latest"></script> 
+    <style>
+        /*
+        * HARMONIZED NAV BAR STYLES 
+        */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 2rem;
+            position: relative;
+        }
+
+        nav .brand {
+            font-weight: bold;
+            font-size: 2rem;
+            user-select: none;
+        }
+
+        nav .links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 1rem;
+        }
+
+        /* --- CORRECTED & CONSISTENT NAV LINK STYLES --- */
+        nav .links a {
+        color: white; 
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        position: relative;
+        user-select: none;
+        padding: 5px 10px; 
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+    
+    /* Highlight/Hover Styles (BRIGHTER BLUE) */
+    nav .links a.active,
+    nav .links a:hover {
+        background-color: #004D99; /* Brighter Blue for a more 'active' feel */
+        color: #fff;
+    }
+    
+    /* --- ACTIVE PAGE HIGHLIGHT FIX (For about.html) --- */
+    /* This rule explicitly targets the ABOUT page link */
+    nav .links a[href="product.html"] {
+        background-color: #004D99; /* Applying the same brighter blue */
+        font-weight: bold;
+    }
+        
+        /* NEW ACTIVE STYLE (Consistent with Login Page) */
+        nav .links a:active {
+            background-color: #003366; /* Dark blue when clicked */
+        }
+        
+        nav .links a svg {
+            width: 24px;
+            height: 24px;
+            /* Critical Fix: Use currentColor so the icon color matches the link color */
+            color: currentColor; 
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* --- Original Search, Cart, Dropdown, Hero, and Modal Styles --- */
+
+        nav .cart {
+            position: relative;
+        }
+
+       nav .cart-badge {
+        position: absolute;
+        top: -4px; 
+        right: 48px; 
+        background: #003366;
+        color: white;
+        font-weight: bold;
+        font-size: 0.75rem;
+        border-radius: 50%;
+        min-width: 10px;
+        height: 15px;
+        line-height: 16px;
+        padding: 0 3px;
+        text-align: center;
+        user-select: none;
+        display: none; 
+    }
+
+        .search-container {
+            position: relative;
+            margin-right: 10px;
+        }
+        .search-bar {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .search-results {
+            position: absolute;
+            top: 38px;
+            left: 0;
+            background: white;
+            color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            width: 200px;
+            z-index: 10;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .search-results div {
+            padding: 8px 10px;
+            cursor: pointer;
+            color: #003366; 
+        }
+        .search-results div:hover {
+            background-color: #e6f0ff;
+        }
+        
+        /* Dropdown/Popover Styles */
+        .user-menu {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #003366; 
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            margin-top: 5px;
+            padding: 8px 0;
+        }
+
+        .dropdown-content a, .dropdown-content div {
+            color: #ffffff; 
+            padding: 10px 16px;
+            text-decoration: none;
+            display: flex; 
+            align-items: center;
+            text-align: left;
+            font-size: 1rem;
+            white-space: nowrap; 
+            gap: 8px;
+        }
+
+        /* FIX: Changed color and stroke to white (#ffffff) for contrast on the blue background */
+        .dropdown-content a svg {
+            color: #ffffff; 
+            stroke: #ffffff; 
+            width: 18px; 
+            height: 18px;
+        }
+
+        .dropdown-content .dropdown-header {
+            font-weight: bold;
+            border-bottom: 1px solid #ffffff; 
+            margin-bottom: 5px;
+            cursor: default; 
+            user-select: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #002244; 
+        }
+
+        .show {
+            display: block;
+        }
+        
+        
+        /* Product Page Styles (UNCHANGED) */
+        main {
+            padding: 20px;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 900px) {
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .products {
+                grid-template-columns: 1fr;
+            }
+        }
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+        }
+        .product:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            max-width: 100%;
+        }
+        button {
+            padding: 10px 12px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 2px 0;
+            width: 100%;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #002244;
+        }
+        .description {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: #555;
+            text-align: left;
+            display: none; 
+        }
+        .product-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .product-details h3 {
+            flex-grow: 1;
+            text-align: left;
+            margin: 0;
+        }
+        .product-details p {
+            margin: 0;
+            text-align: right;
+        }
+
+        /* Modal Styles (UNCHANGED) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            overflow: auto;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 90%;
+            max-height: 90%;
+            width: 600px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal-product-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .modal-close:hover {
+            color: #003366;
+        }
+        
+        .modal-product-description {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .modal-actions button {
+            flex: 1;
+            font-size: large;
+            padding: 10px 15px; 
+            background-color: #003366; /* Deep blue background */
+            color: white; /* White text */
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .modal-actions button:hover {
+            background-color: #002244; /* Darker blue on hover */
+        }
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 5px 20px;
+            margin-top: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        /* --- MODIFIED: Success Message Toast/Modal Styles (Full Screen Overlay) --- */
+        #successToast {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Semi-transparent black overlay */
+            background-color: rgba(0, 0, 0, 0.5); /* 50% transparency black */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* NEW: Inner white box for the message content */
+        #successToastContent {
+            background-color: white;
+            padding: 25px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+            text-align: center;
+            /* Blue text color #003366 */
+            color: #003366; 
+            font-size: 1.2rem;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .show-toast {
+            display: flex !important; /* Display as flex to center content */
+            opacity: 1 !important;
+        }
+        
+        .show-toast #successToastContent {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body id="product">
+    <header>
+        <nav>
+            <div class="brand" title="DBZ Accessories">DBZ Accessories</div>
+            <div class="links">
+                <div class="search-container">
+                    <input type="text" id="searchBar" class="search-bar" placeholder="Search product...">
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+                
+                <a href="index.html" title="Home">
+                    <i data-lucide="home"></i>Home
+                </a>
+                
+                <a href="product.html" title="Product">
+                    <i data-lucide="box"></i> Product
+                </a>
+                
+                <a href="about.html" title="About">
+                    <i data-lucide="info"></i>About
+                </a>
+                
+                <a href="contact.html" title="Contact">
+                    <i data-lucide="phone"></i>Contact
+                </a>
+                
+                <div class="user-menu" id="userMenuContainer">
+                    <a id="userNameLink" href="login.html" title="Login/User">
+                        <i data-lucide="user"></i> <span id="userNameText">Login</span> <i id="dropdownArrow" data-lucide="chevron-down" style="width: 16px; height: 16px; display: none;"></i>
+                    </a>
+                    <div id="userDropdown" class="dropdown-content">
+                        </div>
+                </div>
+                <a href="cart.html" class="cart" title="Cart">
+                    <i data-lucide="shopping-cart"></i>Cart
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h2 style="font-weight: bolder; color:#003366; font-size: xx-large;" >Explore Our Products</h2>
+        <div id="products" class="products">
+            </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 DBZ Accessories. All rights reserved.</p>
+    </footer>
+
+    <div id="productModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img id="modalImage" class="modal-product-image" alt="Product Image" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x400?text=Product+Image';">
+            <div class="product-details">
+                <h3 id="modalName">Product Name</h3>
+                <p id="modalPrice">₹0</p>
+            </div>
+            <p id="modalDescription" class="modal-product-description"></p>
+            <div class="modal-actions">
+                <button id="modalBuyNowBtn">Buy Now</button>
+                <button id="modalAddToCartBtn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="successToast">
+        <div id="successToastContent">
+            </div>
+    </div>
+    <div id="messageModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3 id="messageModalTitle">Modal Title</h3>
+            <p id="messageModalBody">Modal body content.</p>
+            <button class="submit-btn btn-confirm">Confirm</button>
+        </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

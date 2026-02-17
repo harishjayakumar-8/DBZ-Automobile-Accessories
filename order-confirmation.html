@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DBZ Accessories - Order Confirmed</title>
+<script src="https://unpkg.com/lucide@latest"></script> 
+<style>
+    /* --- Shared Styles --- */
+    body {
+        font-family: 'Inter', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: #f8f8f8;
+    }
+
+    header {
+        background-color: #003366;
+        color: white;
+        padding: 15px 20px;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    .brand {
+        font-weight: bold;
+        font-size: 2rem;
+        user-select: none;
+    }
+
+    /* Hamburger button */
+    #navToggle {
+        display: none;
+        cursor: pointer;
+    }
+    #navToggle svg {
+        width: 28px;
+        height: 28px;
+        color: white;
+    }
+
+    .links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .links a {
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+    }
+    .links a:hover {
+        background-color: #004080;
+    }
+    .links a svg {
+        width: 24px;
+        height: 24px;
+        color: white;
+        stroke: currentColor;
+        stroke-width: 2;
+        fill: none;
+    }
+
+    /* --- Confirmation Page --- */
+    main {
+        flex-grow: 1;
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .confirmation-box {
+        max-width: 700px;
+        width: 100%;
+        padding: 40px;
+        border-radius: 8px;
+        background-color: white;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .confirmation-box i {
+        color: #4CAF50;
+        margin-bottom: 20px;
+        width: 60px;
+        height: 60px;
+        stroke-width: 1.5;
+    }
+
+    h2 {
+        color: #003366;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    .order-meta p {
+        font-size: 1.1rem;
+        color: #555;
+        margin: 5px 0;
+    }
+    .order-meta strong {
+        color: #003366;
+    }
+
+    .details-grid {
+        margin-top: 30px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        text-align: left;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+    }
+
+    .shipping-info, .payment-summary {
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+
+    .shipping-info h3, .payment-summary h3 {
+        color: #003366;
+        font-size: 1.2rem;
+        margin-top: 0;
+        border-bottom: 1px solid #003366;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+
+    .payment-summary p {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0;
+    }
+
+    .payment-summary .total {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #d9534f;
+        border-top: 1px dashed #ccc;
+        padding-top: 10px;
+        margin-top: 10px;
+    }
+
+    .btn-group {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    .btn-primary, .btn-secondary {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.2s;
+    }
+    .btn-primary {
+        background-color: #003366;
+        color: white;
+    }
+    .btn-primary:hover {
+        background-color: #002244;
+    }
+    .btn-secondary {
+        background-color: #FFD700;
+        color: #003366;
+    }
+    .btn-secondary:hover {
+        background-color: #e6c500;
+    }
+
+    footer {
+        background-color: #003366;
+        color: white;
+        text-align: center;
+        padding: 0px 20px;
+        margin-top: auto;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+        #navToggle {
+            display: block;
+        }
+        .links {
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #003366;
+            width: 200px;
+            display: none;
+            padding: 10px 0;
+            border-radius: 0 0 8px 8px;
+        }
+        .links.show {
+            display: flex;
+        }
+        .details-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body id="order-confirmation">
+<header>
+    <nav>
+        <div class="brand" title="DBZ Accessories">DBZ Accessories</div>
+        <div id="navToggle"><i data-lucide="menu"></i></div>
+        <div class="links" id="navLinks">
+            <a href="index.html" title="Home">
+                <i data-lucide="home"></i>Home
+            </a>
+            <a href="product.html" title="Product">
+                <i data-lucide="box"></i> Product
+            </a>
+            <a href="cart.html" class="cart" title="Cart">
+                <i data-lucide="shopping-cart"></i>Cart
+                <span class="cart-badge" id="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <div class="confirmation-box">
+        <i data-lucide="check-circle"></i>
+        <h2>Order Confirmed!</h2>
+        <p>Thank you for your purchase. Your order details are below.</p>
+
+        <div class="order-meta">
+            <p>Order Number: <strong id="orderNumber">#DBZ-XXXXXX</strong></p>
+            <p>Estimated Delivery: <strong id="deliveryDate">3-5 Business Days</strong></p>
+            <p>A confirmation email has been sent to <strong><span id="customerEmail">your_email@example.com</span></strong>.</p>
+        </div>
+
+        <div class="details-grid">
+            <div class="shipping-info">
+                <h3>Shipping Address</h3>
+                <p id="shippingName"></p>
+                <p id="shippingAddress1"></p>
+                <p id="shippingCityStateZip"></p>
+                <p id="shippingCountry"></p>
+            </div>
+
+            <div class="payment-summary">
+                <h3>Payment Summary</h3>
+                <p>Subtotal: <span id="summarySubtotal">₹0.00</span></p>
+                <p>Shipping: <span>₹50.00</span></p>
+                <p class="total"><span id="totalLabel">Total Paid:</span> <span id="summaryTotal">₹0.00</span></p>
+                <p style="font-size: 0.9rem; margin-top: 15px;">Payment Method: <strong id="summaryMethod">Card/UPI/COD</strong></p>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <a href="product.html" class="btn-secondary">Continue Shopping</a>
+            <a href="index.html" class="btn-primary">Go to Home</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 DBZ Accessories. Unleash Your Power Level</p>
+</footer>
+<script src="script.js"></script>>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DBZ Accessories - Home</title>
+    <script src="https://unpkg.com/lucide@latest"></script> 
+    <style>
+   /* =========================
+   GLOBAL STYLES
+========================= */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* pushes footer to bottom */
+}
+
+a.btn {
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* =========================
+   HEADER & NAVBAR
+========================= */
+header {
+    background-color: #003366;
+    color: white;
+    padding: 15px 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+nav .brand {
+    font-weight: bold;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    user-select: none;
+}
+
+nav .links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+nav .links a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+nav .links a.active,
+nav .links a:hover {
+    background-color: #004D99;
+}
+
+nav .links a:active {
+    background-color: #003366;
+}
+
+nav .links a svg {
+    width: 24px;
+    height: 24px;
+    color: currentColor;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
+/* -------------------
+   CART BADGE
+------------------- */
+nav .cart {
+    position: relative;
+}
+
+nav .cart-badge {
+    position: absolute;
+    top: -4px;
+    right: 0;
+    background: #003366;
+    color: white;
+    font-weight: bold;
+    font-size: 0.75rem;
+    border-radius: 50%;
+    min-width: 15px;
+    height: 15px;
+    line-height: 15px;
+    text-align: center;
+    display: none;
+}
+
+/* -------------------
+   SEARCH BAR
+------------------- */
+.search-container {
+    position: relative;
+    margin-right: 10px;
+}
+
+.search-bar {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.search-results {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background: white;
+    color: #003366;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    width: 200px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    display: none;
+}
+
+.search-results div {
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+.search-results div:hover {
+    background-color: #e6f0ff;
+}
+
+/* =========================
+   DROPDOWN MENU
+========================= */
+.user-menu {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background-color: #003366;
+    min-width: 160px;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    padding: 8px 0;
+    z-index: 10;
+}
+
+.dropdown-content a, .dropdown-content div {
+    color: #ffffff;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    font-size: 1rem;
+}
+
+.dropdown-content a svg {
+    color: #ffffff;
+    stroke: #ffffff;
+    width: 18px;
+    height: 18px;
+}
+
+.dropdown-content .dropdown-header {
+    font-weight: bold;
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: 5px;
+    cursor: default;
+    user-select: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #002244;
+}
+
+.show {
+    display: block;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 130px 60px 162px 60px;
+    background-color: #f4f4f4;
+    text-align: left;
+}
+
+.hero .text-content {
+    flex: 1;
+    max-width: 800px;
+}
+
+.hero .text-content h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: #003366;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero .text-content p {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    color: #003366;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.hero .text-content .btn {
+    font-size: 1rem;
+    padding: 12px 20px;
+    background-color: #003366;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.hero .text-content .btn:hover {
+    background-color: #002244;
+}
+
+.hero .image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.hero .image img {
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+}
+
+/* =========================
+   MODAL
+========================= */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #003366;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.modal-content p {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.modal-content .submit-btn {
+    width: 50%;
+    margin: 10px auto 0;
+    padding: 10px;
+    font-size: 1rem;
+    display: block;
+    background-color: #003366;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.modal-content .submit-btn:hover {
+    background-color: #d32f2f;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    flex: 1;
+    font-size: large;
+    padding: 10px 15px;
+    background-color: #003366;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.modal-actions button:hover {
+    background-color: #002244;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    background-color: #003366;
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+    margin-top: auto;
+    font-size: 1rem;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* =========================
+   RESPONSIVE MEDIA QUERIES
+========================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .hero {
+        padding: 60px 40px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    .hero .text-content {
+        max-width: 100%;
+    }
+
+    .hero .image {
+        margin-top: 20px;
+    }
+
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    nav .links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #003366;
+        margin-top: 10px;
+        padding: 10px 0;
+        border-radius: 8px;
+    }
+
+    nav .links.show {
+        display: flex;
+    }
+
+    .nav-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+    }
+
+    .nav-toggle span {
+        display: block;
+        height: 3px;
+        background: white;
+        border-radius: 2px;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+}
+    </style>
+</head>
+<body id="index">
+<header>
+    <nav>
+        <div class="brand" title="DBZ Accessories">DBZ Accessories</div>
+
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="links" id="navLinks">
+            <div class="search-container">
+                <input type="text" id="searchBar" class="search-bar" placeholder="Search product...">
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <a href="index.html" title="Home">
+                <i data-lucide="home"></i>Home
+            </a>
+
+            <a href="product.html" title="Product">
+                <i data-lucide="box"></i> Product
+            </a>
+
+            <a href="about.html" title="About">
+                <i data-lucide="info"></i>About
+            </a>
+
+            <a href="contact.html" title="Contact">
+                <i data-lucide="phone"></i>Contact
+            </a>
+
+            <div class="user-menu" id="userMenuContainer">
+                <a id="userNameLink" href="login.html" title="Login/User">
+                    <i data-lucide="user"></i> <span id="userNameText">Login</span>
+                    <i id="dropdownArrow" data-lucide="chevron-down" style="width:16px;height:16px;display:none;"></i>
+                </a>
+                <div id="userDropdown" class="dropdown-content"></div>
+            </div>
+
+            <a href="cart.html" class="cart" title="Cart">
+                <i data-lucide="shopping-cart"></i>Cart
+                <span class="cart-badge" id="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="text-content">
+            <h1>Build Your Dream Machine with Us</h1>
+            <p>Discover a world of premium automobile accessories designed to elevate every aspect of your vehicle. From high-performance upgrades to custom styling and cutting-edge technology, we provide everything you need to create a truly exceptional ride. Experience unrivaled quality and service—your perfect vehicle starts here.</p>
+            <a href="product.html" class="btn">Explore Our Collection</a>
+        </div>
+        <div class="image">
+            <img src="img/index.jpg" alt="Automobile Accessory Image" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x350?text=Premium+Accessories';">
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 DBZ Accessories. Unleash Your Power Level</p>
+</footer>
+    <script src="script.js"></script>
+</body>
+</html>
