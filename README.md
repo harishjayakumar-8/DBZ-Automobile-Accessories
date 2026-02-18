@@ -188,7 +188,7 @@ If further developed, this project can include:
 
 ## 🌐 Live Demo
 
-👉 **Live Website:**  [Visit Live Website](https://harishjayakumar-8.github.io/DBZ-Automobile-Accessories/product.html)
+👉 **Live Website:**  [Visit Live Website](https://harishjayakumar-8.github.io/DBZ-Automobile-Accessories/index.html)
 
 ---
 
