@@ -401,17 +401,95 @@
         .show-toast #successToastContent {
             transform: scale(1);
         }
+/* ============================= */
+/* HAMBURGER BUTTON              */
+/* ============================= */
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 34px;
+    height: 26px;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    height: 4px;
+    background: white;
+    border-radius: 3px;
+}
+
+/* ============================= */
+/* MOBILE NAV OVERLAY STYLE     */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+    /* Show hamburger */
+    .nav-toggle {
+        display: flex;
+    }
+
+    nav {
+        position: relative;
+        height: 60px;
+    }
+
+    /* Floating dropdown */
+    .links {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 220px;
+        background-color: #003366;
+        flex-direction: column;
+        display: none;
+        padding: 10px 0;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        z-index: 999;
+        gap: 0;
+    }
+
+    .links.show {
+        display: flex;
+    }
+
+    .links a {
+        padding: 12px 20px;
+    }
+
+    /* Search adjustments */
+    .search-container {
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+}
+
+
     </style>
 </head>
 <body id="product">
     <header>
         <nav>
             <div class="brand" title="DBZ Accessories">DBZ Accessories</div>
-            <div class="links">
-                <div class="search-container">
-                    <input type="text" id="searchBar" class="search-bar" placeholder="Search product...">
-                    <div id="searchResults" class="search-results"></div>
-                </div>
+
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="links" id="navLinks">
+            <div class="search-container">
+                <input type="text" id="searchBar" class="search-bar" placeholder="Search product...">
+                <div id="searchResults" class="search-results"></div>
+            </div>
                 
                 <a href="index.html" title="Home">
                     <i data-lucide="home"></i>Home

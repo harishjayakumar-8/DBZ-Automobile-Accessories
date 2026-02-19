@@ -320,16 +320,69 @@ footer {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
 }
+/* ============================= */
+/* HAMBURGER BUTTON              */
+/* ============================= */
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+}
 
 /* =========================
-   RESPONSIVE
+   MOBILE NAV OVERLAY STYLE
 ========================= */
-@media(max-width:768px){
-    nav .links { display:none; flex-direction:column; width:100%; background:var(--primary-color); margin-top:10px; padding:10px 0; border-radius:8px; }
-    nav .links.show { display:flex; }
-    .nav-toggle { display:flex; }
-    .modal-actions { flex-direction: column; }
+
+@media (max-width: 768px) {
+
+    /* Show hamburger */
+    .nav-toggle {
+        display: flex;
+    }
+
+    nav {
+        position: relative;
+        height: 60px;
+    }
+
+    /* Floating dropdown over content */
+    nav .links {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 220px;
+        background: var(--primary-color);
+        flex-direction: column;
+        display: none;
+        padding: 10px 0;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        z-index: 999;
+    }
+
+    nav .links.show {
+        display: flex;
+    }
+
+    nav .links a {
+        padding: 12px 20px;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
 }
+
 </style>
 </head>
 <body>

@@ -6,6 +6,10 @@
     <title>DBZ Accessories - Checkout</title>
     <script src="https://unpkg.com/lucide@latest"></script> 
     <style>
+                * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', Arial, sans-serif;
             margin: 0;
@@ -367,14 +371,123 @@
             max-width: 90%;
             min-width: 300px;
         }
-        
+        /* ============================= */
+/* HAMBURGER BUTTON             */
+/* ============================= */
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+}
+
+/* ============================= */
+/* MOBILE NAV + CHECKOUT FIX    */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+    /* Prevent horizontal scroll */
+    html, body {
+        overflow-x: hidden;
+    }
+
+    /* Show Hamburger */
+    .nav-toggle {
+        display: flex;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        position: relative;
+    }
+
+    nav .links {
+        display: none;
+        position: absolute;
+        top: 55px;
+        right: 0;
+        width: 220px;
+        background-color: #003366;
+        flex-direction: column;
+        padding: 10px 0;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        z-index: 999;
+    }
+
+    nav .links.show {
+        display: flex;
+    }
+
+    nav .links a {
+        padding: 10px 20px;
+    }
+
+    /* Checkout Layout */
+    main {
+        padding: 15px;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .checkout-container {
+        flex-direction: column;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .shipping-form-container,
+    .order-summary-container {
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: none;
+        box-sizing: border-box;
+    }
+
+    .order-summary-container {
+        position: static;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    h2.checkout-title {
+        font-size: 1.8rem;
+        padding: 10px 0 20px;
+        text-align: center;
+    }
+}
+
+
     </style>
 </head>
 <body id = "checkout">
     <header>
         <nav>
             <div class="brand" title="DBZ Accessories">DBZ Accessories</div>
-            <div class="links">
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            <div class="links" id="navLinks">
+
                 <div class="search-container">
                     <input type="text" id="searchBar" class="search-bar" placeholder="Search product...">
                     <div id="searchResults" class="search-results"></div>

@@ -365,21 +365,31 @@ footer {
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
+}/* ============================= */
+/* HAMBURGER BUTTON (MATCH CHECKOUT) */
+/* ============================= */
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 22px;
+    cursor: pointer;
 }
 
-/* =========================
-   RESPONSIVE MEDIA QUERIES
-========================= */
-
-/* Tablet */
-@media (max-width: 1024px) {
-    .hero {
-        padding: 60px 40px;
-    }
+.nav-toggle span {
+    height: 3px;
+    background: white;
+    border-radius: 2px;
 }
 
-/* Mobile */
+/* ============================= */
+/* MOBILE NAV OVERLAY STYLE     */
+/* ============================= */
+
 @media (max-width: 768px) {
+
     .hero {
         flex-direction: column;
         text-align: center;
@@ -394,46 +404,45 @@ footer {
         margin-top: 20px;
     }
 
-    nav {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+    /* Show hamburger */
+    .nav-toggle {
+        display: flex;
     }
 
+    nav {
+        position: relative;
+        height: 60px; /* fixed nav height */
+    }
+
+    /* 🔥 FLOATING DROPDOWN */
     nav .links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 220px;
         background-color: #003366;
-        margin-top: 10px;
+        flex-direction: column;
+        display: none;
         padding: 10px 0;
         border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        z-index: 999;
     }
 
     nav .links.show {
         display: flex;
     }
 
-    .nav-toggle {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        width: 30px;
-        height: 25px;
-        cursor: pointer;
-    }
-
-    .nav-toggle span {
-        display: block;
-        height: 3px;
-        background: white;
-        border-radius: 2px;
+    nav .links a {
+        padding: 12px 20px;
     }
 
     .modal-actions {
         flex-direction: column;
     }
 }
+
+
     </style>
 </head>
 <body id="index">

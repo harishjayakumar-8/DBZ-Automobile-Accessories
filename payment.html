@@ -242,6 +242,44 @@
             max-width: 90%;
             min-width: 300px;
         }
+        /* ============================= */
+/* PAYMENT PAGE MOBILE FIX      */
+/* ============================= */
+
+html, body {
+    overflow-x: hidden;
+}
+
+/* Fix container overflow */
+.payment-container {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Prevent flex row overflow */
+.form-row {
+    flex-wrap: wrap;
+}
+
+/* Mobile correction */
+@media (max-width: 768px) {
+
+    main {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .payment-container {
+        padding: 20px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+}
+
     </style>
 </head>
 <body id="payment">

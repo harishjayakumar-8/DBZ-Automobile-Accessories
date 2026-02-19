@@ -223,13 +223,77 @@
             font-size: 1rem;
             display: block;
         }
+        /* ============================= */
+/* HAMBURGER BUTTON              */
+/* ============================= */
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 34px;
+    height: 26px;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    height: 4px;
+    background: white;
+    border-radius: 3px;
+}
+
+/* ============================= */
+/* MOBILE NAV OVERLAY STYLE     */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+    /* Show hamburger */
+    .nav-toggle {
+        display: flex;
+    }
+
+    nav {
+        position: relative;
+        height: 60px;
+    }
+
+    /* Floating dropdown */
+    nav .links {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 220px;
+        background-color: #003366;
+        flex-direction: column;
+        display: none;
+        padding: 10px 0;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        z-index: 999;
+    }
+
+    nav .links.show {
+        display: flex;
+    }
+
+    nav .links a {
+        padding: 12px 20px;
+    }
+}
+
     </style>
 </head>
 <body id="login">
     <header>
         <nav>
-            <a href="index.html" class="brand" title="Home">E-Commerce</a>
-            <div class="links">
+            <a href="index.html" class="brand" title="Home">DBZ Accessories</a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="links" id="navLinks">
                 <a href="index.html" title="Home"><i data-lucide="home"></i>Home</a>
                 <a href="product.html" title="Product"><i data-lucide="box"></i> Product</a>
                 <a href="about.html" title="About"><i data-lucide="info"></i>About</a>
@@ -245,7 +309,7 @@
                 </div>
 
                 <a href="cart.html" class="cart" title="Cart">
-                    <i data-lucide="shopping-cart"></i>
+                    <i data-lucide="shopping-cart"></i>Cart
                     <span class="cart-badge" id="cart-count">0</span>
                 </a>
             </div>
@@ -337,7 +401,6 @@
     <!-- LOAD ICONS FIRST -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- GLOBAL JS HANDLES EVERYTHING -->
     <script src="script.js"></script>
 
 </body>
