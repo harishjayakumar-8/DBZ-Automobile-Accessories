@@ -11,7 +11,8 @@ This project demonstrates a complete online shopping flow for automobile accesso
 
 The application allows users to browse products, manage cart, simulate checkout and payment, and use a login/signup system.
 
-💻 **Code Repository:** [GitHub]: (https://github.com/yourusername/DBZ-Accessories)
+## 💻 Code Repository
+🔗 [View code on GitHub](https://github.com/harishjayakumar-8/DBZ-Automobile-Accessories)
 
 ---
 
@@ -187,8 +188,7 @@ If further developed, this project can include:
 
 ## 🌐 Live Demo
 
-👉 **Live Website:**  
-https://your-live-link-here.com  
+👉 **Live Website:**  [Visit Live Website](https://harishjayakumar-8.github.io/DBZ-Automobile-Accessories/index.html)
 
 ---
 
