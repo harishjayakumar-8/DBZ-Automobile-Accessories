@@ -419,7 +419,7 @@ function initProductPage() {
     const searchResults = document.getElementById('searchResults');
     const productModal = document.getElementById('productModal');
 
-    const modalCloseBtn = document.querySelector('.modal-close');
+   
     const modalImage = document.getElementById('modalImage');
     const modalName = document.getElementById('modalName');
     const modalPrice = document.getElementById('modalPrice');
@@ -441,16 +441,24 @@ function initProductPage() {
         }
 
         results.forEach(product => {
-            const div = document.createElement("div");
-            div.classList.add("search-result-item");
-            div.textContent = product.name;
-            div.onclick = () => {
-                searchBar.value = "";
-                searchResults.style.display = "none";
-                showProductModal(product.id);
-            };
-            searchResults.appendChild(div);
-        });
+    const div = document.createElement("div");
+    div.classList.add("search-result-item");
+    div.textContent = product.name;
+
+    div.onclick = () => {
+        searchBar.value = "";
+        searchResults.style.display = "none";
+
+        // 🔥 Close mobile hamburger menu
+        const mobileMenu = document.querySelector(".links");
+        mobileMenu.classList.remove("show");
+
+        showProductModal(product.id);
+    };
+
+    searchResults.appendChild(div);
+});
+
 
         searchResults.style.display = "block";
     }
@@ -479,12 +487,16 @@ function initProductPage() {
         document.body.style.overflow = "hidden";
     }
 
-    function hideProductModal() {
-        productModal.style.display = "none";
-        document.body.style.overflow = "auto";
+    
+
+   document.addEventListener("click", function (e) {
+
+    if (e.target.classList.contains("modal-close")) {
+        hideProductModal();
     }
 
-    modalCloseBtn.addEventListener("click", hideProductModal);
+});
+
     productModal.addEventListener("click", (e) => {
         if (e.target === productModal) hideProductModal();
     });
@@ -548,6 +560,7 @@ function initProductPage() {
     loadProducts();
     localUpdateCartCount();
 }
+
 // -------------------------
 // --- CONTACT PAGE ---
 // -------------------------
@@ -1053,3 +1066,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+function hideProductModal() {
+    const modal = document.getElementById("productModal");
+    const navLinks = document.getElementById("navLinks");
+
+    if (modal) {
+        modal.style.display = "none";
+    }
+
+    if (navLinks) {
+        navLinks.classList.remove("show"); // 🔥 close hamburger
+    }
+
+    document.body.style.overflow = "auto";
+}

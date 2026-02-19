@@ -363,6 +363,7 @@
         }
 
         .modal-content {
+            position: relative;
             background: white;
             padding: 20px;
             border-radius: 8px;
@@ -371,7 +372,16 @@
             max-width: 90%;
             min-width: 300px;
         }
-        /* ============================= */
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 100;         /* Make sure it stays above image */
+        }
+ /* ============================= */
 /* HAMBURGER BUTTON             */
 /* ============================= */
 
@@ -412,17 +422,18 @@
     }
 
     nav .links {
-        display: none;
-        position: absolute;
-        top: 55px;
+         position: absolute;
+        top: 60px;
         right: 0;
         width: 220px;
         background-color: #003366;
         flex-direction: column;
+        display: none;
         padding: 10px 0;
         border-radius: 8px;
         box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         z-index: 999;
+        gap: 0;
     }
 
     nav .links.show {

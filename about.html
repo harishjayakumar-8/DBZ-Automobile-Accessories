@@ -112,58 +112,6 @@ nav .links a svg {
     fill: none;
 }
 
-/* =========================
-   SEARCH BAR
-========================= */
-.search-container {
-    position: relative;
-    margin-right: 10px;
-}
-.search-bar {
-    padding: 6px 10px;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-.search-results {
-    position: absolute;
-    top: 110%;
-    left: 0;
-    background: white;
-    color: #003366;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    width: 200px;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 10;
-    display: none;
-}
-.search-results div {
-    padding: 8px 10px;
-    cursor: pointer;
-}
-.search-results div:hover {
-    background-color: #e6f0ff;
-}
-
-/* =========================
-   USER DROPDOWN MENU
-========================= */
-/*
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 110%;
-    right: 0;
-    background-color: var(--primary-color);
-    min-width: 160px;
-    border-radius: 4px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    padding: 8px 0;
-    z-index: 10;
-}
-*/
 .user-menu {
     position: relative;
 }
@@ -279,39 +227,81 @@ footer {
    MODAL
 ========================= */
 .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    z-index: 1000;
-}
-.modal-content {
-    background: white;
-    padding: 25px;
-    width: 100%;
-    max-width: 400px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    animation: fadeIn 0.3s ease;
-}
-.modal-actions { display: flex; gap: 10px; margin-top: 20px; }
-.modal-actions button {
-    flex: 1;
-    font-size: large;
-    padding: 10px 15px;
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-.modal-actions button:hover { background-color: #002244; }
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            overflow: auto;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 90%;
+            max-height: 90%;
+            width: 600px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal-product-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .modal-close:hover {
+            color: #003366;
+        }
+        
+        .modal-product-description {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .modal-actions button {
+            flex: 1;
+            font-size: large;
+            padding: 10px 15px; 
+            background-color: #003366; /* Deep blue background */
+            color: white; /* White text */
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .modal-actions button:hover {
+            background-color: #002244; /* Darker blue on hover */
+        }
 
 /* =========================
    ANIMATIONS
@@ -361,13 +351,14 @@ footer {
         top: 60px;
         right: 0;
         width: 220px;
-        background: var(--primary-color);
+        background-color: #003366;
         flex-direction: column;
         display: none;
         padding: 10px 0;
         border-radius: 8px;
         box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         z-index: 999;
+        gap: 0;
     }
 
     nav .links.show {
@@ -395,10 +386,7 @@ footer {
                 <span></span>
             </div>
             <div class="links" id="navLinks">
-                <div class="search-container">
-                    <input type="text" id="searchBar" class="search-bar" placeholder="Search product...">
-                    <div id="searchResults" class="search-results"></div>
-                </div>
+                
                 <a href="index.html" title="Home"><i data-lucide="home"></i>Home</a>
                 <a href="product.html" title="Product"><i data-lucide="box"></i>Product</a>
                 <a href="about.html" title="About"><i data-lucide="info"></i>About</a>
@@ -456,30 +444,6 @@ footer {
     <p>&copy; 2024 DBZ Accessories. Unleash Your Power Level</p>
 </footer>
 
-<div id="productModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <img id="modalImage" class="modal-product-image" alt="Product Image">
-        <div class="product-details">
-            <h3 id="modalName">Product Name</h3>
-            <p id="modalPrice">₹0</p>
-        </div>
-        <p id="modalDescription" class="modal-product-description"></p>
-        <div class="modal-actions">
-            <button id="modalBuyNowBtn">Buy Now</button>
-            <button id="modalAddToCartBtn">Add to Cart</button>
-        </div>
-    </div>
-</div>
-
-<div id="messageModal" class="modal-overlay" style="display: none;">
-    <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <h3 id="messageModalTitle">Modal Title</h3>
-        <p id="messageModalBody">Modal body content.</p>
-        <button class="submit-btn btn-confirm">Confirm</button>
-    </div>
-</div>
 
 <script src="script.js"></script>
 </body>
