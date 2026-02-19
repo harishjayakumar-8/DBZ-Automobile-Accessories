@@ -1069,13 +1069,25 @@ document.addEventListener("DOMContentLoaded", function () {
 function hideProductModal() {
     const modal = document.getElementById("productModal");
     const navLinks = document.getElementById("navLinks");
+    const searchBar = document.getElementById("searchBar");
+    const searchResults = document.getElementById("searchResults");
 
     if (modal) {
         modal.style.display = "none";
     }
 
     if (navLinks) {
-        navLinks.classList.remove("show"); // 🔥 close hamburger
+        navLinks.classList.remove("show");
+    }
+
+    // 🔥 Clear search UI
+    if (searchBar) {
+        searchBar.value = "";
+    }
+
+    if (searchResults) {
+        searchResults.innerHTML = "";
+        searchResults.style.display = "none";
     }
 
     document.body.style.overflow = "auto";
